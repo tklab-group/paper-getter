@@ -1,0 +1,11 @@
+{
+  "name": "paper-getter",
+  "version": "1.0.0",
+  "description": "getting information of paper from dblp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "y.ishida",
+  "license": "MIT"
+}
