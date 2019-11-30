@@ -32,10 +32,15 @@ const modifyResponse = (paperData) => {
     if(paperInfo.type != 'Conference and Workshop Papers'){
       continue;
     }
-
+    let authorExp
+    if(paperInfo.authors.author instanceof Array){
+      authorExp = paperInfo.authors.author.join(',')
+    }else{
+      authorExp = paperInfo.authors.author
+    }
     returnArr.push({
       title: paperInfo.title,
-      authors: paperInfo.authors.author,
+      author: authorExp,
       url: paperInfo.ee
     })
   }

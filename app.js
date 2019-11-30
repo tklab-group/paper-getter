@@ -1,5 +1,8 @@
 const {venueMap} = require('./config/venue.js')
 const {fetchFromDblp} = require('./modules/dblp/apiCaller.js')
+const {createObjectCsvWriter} = require('csv-writer');
+
+const csvHeader = ["title", "author", "url"]
 
 
 const main = async () => {
@@ -13,7 +16,13 @@ const main = async () => {
   
   const paperData = await fetchFromDblp(venueMap[venue], year)
   
-  console.log(paperData)
+  const csvFilePath = `./output/${venue}-${year}.csv`
+  const csvWriter = createObjectCsvWriter({
+    path: csvFilePath,
+    header: csvHeader,
+    encoding:'utf8'
+  })
+  csvWriter.writeRecords(paperData)
 }
 
 main()
