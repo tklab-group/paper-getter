@@ -7,7 +7,8 @@ dblpから論文データを取ってきてタイトル, 著者, urlをcsvとし
 1. クローンしてパッケージをインストール
 
 ```
-$ git clone 
+$ git clone git@github.com:gihachi/paper-getter.git
+$ cd paper-getter
 $ npm install 
 ```
 
