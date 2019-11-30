@@ -1,5 +1,6 @@
 'use script'
 const axios =  require('axios')
+const Encoding = require('encoding-japanese')
 
 exports.fetchFromDblp = async (venue, year) => {
   const apiPath = 'http://dblp.org/search/publ/api'
@@ -32,12 +33,19 @@ const modifyResponse = (paperData) => {
     if(paperInfo.type != 'Conference and Workshop Papers'){
       continue;
     }
-    let authorExp
+
+    let authorArr = []
+
     if(paperInfo.authors.author instanceof Array){
-      authorExp = paperInfo.authors.author.join(',')
+      for(author of paperInfo.authors.author){
+        authorArr.push(convertStr(author))
+      }
     }else{
-      authorExp = paperInfo.authors.author
+      authorArr.push(convertStr(paperInfo.authors.author))
     }
+
+    const authorExp = authorArr.join(',')
+
     returnArr.push({
       title: paperInfo.title,
       author: authorExp,
@@ -45,4 +53,14 @@ const modifyResponse = (paperData) => {
     })
   }
   return returnArr
+}
+
+const convertStr = (str) => {
+  const encode = Encoding.detect(str);
+  const convertData = Encoding.convert(str, {
+    to: 'utf-8',
+    from: 'utf-8',
+    type: 'string',
+  });
+  return convertData
 }
