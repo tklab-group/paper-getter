@@ -55,8 +55,12 @@ const modifyResponse = (paperData) => {
   return returnArr
 }
 
+
+/**
+ * なぜかutf-8 -> utf-8変換しないと文字化けする
+ * @param {}} str 
+ */
 const convertStr = (str) => {
-  const encode = Encoding.detect(str);
   const convertData = Encoding.convert(str, {
     to: 'utf-8',
     from: 'utf-8',
