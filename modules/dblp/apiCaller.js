@@ -2,7 +2,7 @@
 const axios =  require('axios')
 const Encoding = require('encoding-japanese')
 
-exports.fetchFromDblp = async (venue, year) => {
+exports.fetchFromDblp = async (venue, year, minPage) => {
   const apiPath = 'http://dblp.org/search/publ/api'
   const query = `venue:${venue}:+year:${year}:`
   const res = await axios.get(apiPath, {
@@ -18,7 +18,7 @@ exports.fetchFromDblp = async (venue, year) => {
   if(res.status === 200){
     const hits = res.data.result.hits
     if(hits.hit){
-      return modifyResponse(hits.hit)
+      return modifyResponse(hits.hit, minPage)
     }
   }
 
@@ -26,11 +26,22 @@ exports.fetchFromDblp = async (venue, year) => {
 }
 
 
-const modifyResponse = (paperData) => {
+const modifyResponse = (paperData, minPage) => {
   const returnArr = []
   for(paper of paperData){
     const paperInfo = paper.info
     if(paperInfo.type != 'Conference and Workshop Papers'){
+      console.log(`"${paperInfo.title}" is not conference paper`)
+      continue;
+    }
+
+    // minPage以下のpaperはリストから除外
+    const pagesArr = paperInfo.pages.split('-')
+    if(pagesArr.length > 2){
+      throw `${paperInfo.title} pages is invalid : ${pagesArr.length}`
+    }
+    if(pagesArr.length == 1 || (parseInt(pagesArr[1],10) - parseInt(pagesArr[0], 10)) < minPage){
+      console.log(`"${paperInfo.title}" is removed because of page size`)
       continue;
     }
 

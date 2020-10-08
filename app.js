@@ -1,4 +1,5 @@
 const {venueMap} = require('./config/venue.js')
+const {paperCondition} = require('./config/paper_config')
 const {fetchFromDblp} = require('./modules/dblp/apiCaller.js')
 const fs = require('fs')
 const csvStringify = require('csv-stringify')
@@ -15,7 +16,7 @@ const main = async () => {
   const venue = process.argv[2]
   const year = process.argv[3]
   
-  const paperData = await fetchFromDblp(venueMap[venue], year)
+  const paperData = await fetchFromDblp(venueMap[venue], year, paperCondition.minPage)
 
   const csvFilePath = `./output/${venue}-${year}.tsv`
   
