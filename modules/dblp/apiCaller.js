@@ -38,10 +38,10 @@ const modifyResponse = (paperData) => {
 
     if(paperInfo.authors.author instanceof Array){
       for(author of paperInfo.authors.author){
-        authorArr.push(convertStr(author.text).replace(" 0001", ""))
+        authorArr.push(convertStr(author.text).replace(/ 000[0-9]+/g, ""))
       }
     }else{
-      authorArr.push(convertStr(paperInfo.authors.author.text).replace(" 0001", ""))
+      authorArr.push(convertStr(paperInfo.authors.author.text).replace(/ 000[0-9]+/g, ""))
     }
 
     const authorExp = authorArr.join(',')
