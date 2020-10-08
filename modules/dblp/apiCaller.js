@@ -40,7 +40,15 @@ const modifyResponse = (paperData, minPage) => {
     if(pagesArr.length > 2){
       throw `${paperInfo.title} pages is invalid : ${pagesArr.length}`
     }
-    if(pagesArr.length == 1 || (parseInt(pagesArr[1],10) - parseInt(pagesArr[0], 10)) < minPage){
+
+    const pageSize;
+    if(pagesArr.length == 1){
+      pageSize = 1;
+    }else {
+      pageSize = parseInt(pagesArr[1],10) - parseInt(pagesArr[0], 10);
+    }
+
+    if(pageSize < minPage){
       console.log(`"${paperInfo.title}" is removed because of page size`)
       continue;
     }
