@@ -41,7 +41,7 @@ const modifyResponse = (paperData, minPage) => {
       throw `${paperInfo.title} pages is invalid : ${pagesArr.length}`
     }
 
-    const pageSize;
+    let pageSize;
     if(pagesArr.length == 1){
       pageSize = 1;
     }else {
