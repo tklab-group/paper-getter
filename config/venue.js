@@ -3,5 +3,6 @@ exports.venueMap = {
   "saner" : "SANER",
   "msr" : "MSR",
   "icsme" : "ICSME",
-  "ase" : "ASE"
+  "ase" : "ASE",
+  "icse": "ICSE"
 }
