@@ -1,5 +1,5 @@
 exports.venueMap = {
-  "fse" : "ESEC/SIGSOFT_FSE",
+  "fse" : "SIGSOFT FSE Companion", // ESEC/SIGSOFT_FSE (until 2024)
   "saner" : "SANER",
   "msr" : "MSR",
   "icsme" : "ICSME",
